@@ -1,4 +1,4 @@
-# aws-back
+# Guys Toys Shop
 Backend for Node.js &amp; AWS Course
 
 Status | Task | Url
