@@ -34,6 +34,8 @@ Self check:
 - getProductsList - https://f45hjbxv3k.execute-api.eu-central-1.amazonaws.com/dev/products
 - getProductsById - https://f45hjbxv3k.execute-api.eu-central-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9445-fc73c48a80a2
 - Frontend - http://backet-for-fe-app-auto-2.s3-website-us-east-1.amazonaws.com/
+
+PR FrontEnd: https://github.com/slubimav/aws-back/pull/1
  
 -----------
 
