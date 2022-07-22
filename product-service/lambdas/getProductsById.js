@@ -1,4 +1,5 @@
-import { Client } from 'pg';
+import pg from 'pg';
+const { Client } = pg;
 
 const handleResponse = (products = {}, status = 200) => ({
   headers: {
