@@ -25,7 +25,7 @@ const credentials = {
   connectionTimeoutMillis: 5000,
 };
 
-let data_export = {}, error_code = 200;
+let data_export = {}, statusCode = 200;
 
 
 export const handler = async event => {
@@ -36,21 +36,21 @@ export const handler = async event => {
   
   client.on('error', err => {
                             data_export = 'DB Client Error 500:' + err.stack;
-                            error_code = 500;
+                            statusCode = 500;
                             console.error('DB Client Error 500:', err.stack);
                             })
 
   await client
           .connect()
           .then(() => console.log('Client connected'))
-          .catch(err => {data_export = 'DB connection error:' + err.stack; error_code = 500})
+          .catch(err => {data_export = 'DB connection error:' + err.stack; statusCode = 500})
 
 
   try {
       
       const { title, description, price, imageid, count } = JSON.parse(event.body);
       
-      if (typeof title === 'undefined' || title === '') { data_export = 'Not valid data for product creation' ; error_code = 400; return handleResponse(data_export, error_code); }
+      if (typeof title === 'undefined' || title === '') { data_export = 'Not valid data for product creation' ; statusCode = 400; return handleResponse(data_export, statusCode); }
 
       await client.query('BEGIN');
 
@@ -81,11 +81,11 @@ export const handler = async event => {
                     id: productId,
                     };
       
-      error_code = 200;
+      statusCode = 200;
 
       } catch (err) {
     
-      data_export = 'DB insert error 500:' + err; error_code = 500;
+      data_export = 'DB insert error 500:' + err; statusCode = 500;
 
       await client.query('ROLLBACK');
     
@@ -95,7 +95,7 @@ export const handler = async event => {
     
       client.end();
 
-      return handleResponse(data_export, error_code);
+      return handleResponse(data_export, statusCode);
       
       }
 };
