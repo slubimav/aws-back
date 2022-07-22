@@ -25,7 +25,7 @@ const credentials = {
   connectionTimeoutMillis: 5000,
 };
 
-let data_export = {}, error_code = 200;
+let data_export = {}, statusCode = 200;
 
 export const handler = async event => {
   
@@ -37,14 +37,14 @@ export const handler = async event => {
 
   client.on('error', err => {
                             data_export = 'DB Client Error 500:' + err.stack;
-                            error_code = 500;
+                            statusCode = 500;
                             console.error('DB Client Error 500:', err.stack);
                             })
 
   await client
           .connect()
           .then(() => console.log('Client connected'))
-          .catch(err => {data_export = 'DB connection error:' + err.stack; error_code = 500})
+          .catch(err => {data_export = 'DB connection error:' + err.stack; statusCode = 500})
 
 
  await client
@@ -54,13 +54,14 @@ export const handler = async event => {
                         WHERE products.id='${productId}'`)
 
           .then(res => { data_export = res.rows })
-          .catch(err => { data_export = 'DB query error 500:' + err.stack; error_code = 500})   
+          .catch(err => { data_export = 'DB query error 500:' + err.stack; statusCode = 500})   
   
   await client
           .end()
           .then(() => console.log('Client disconnected'))
-          .catch(err => {data_export = 'DB disconnection error 500:' + err.stack; error_code = 500})
+          .catch(err => {data_export = 'DB disconnection error 500:' + err.stack; statusCode = 500})
 
-  if (JSON.stringify(data_export) == JSON.stringify([])) { data_export = 'Product not found 500: Wrong id'; error_code = 400 }
+  if (JSON.stringify(data_export) == JSON.stringify([])) { data_export = 'Product not found 500: Wrong id'; statusCode = 400 }
 
-  return await handleResponse(data_export, error_code);
+  return handleResponse(data_export, statusCode);
+}
