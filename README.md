@@ -52,12 +52,8 @@ Task 4.3 | __createProduct__ POST to add product to DB | POST | https://tmea6ql6
 
 ##### Product Creation 
 
-- Postman:
-
 ![Postman](https://github.com/slubimav/aws-back/blob/task-4/screenshots/create_product.png)
 ##### CloudWatch Logs getProductsList:
-
-- CloudWatch лога функции getProductsList
 
 ![BackEnd](https://github.com/slubimav/aws-back/blob/task-4/screenshots/CloudWatchLogs.png)
 
@@ -65,4 +61,4 @@ Task 4.3 | __createProduct__ POST to add product to DB | POST | https://tmea6ql6
 
 # __Swagger documentation__
 
-https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
+https://app.swaggerhub.com/apis/slubimav/AWS-NodeJS/1.0.0/
