@@ -25,17 +25,15 @@ Self check:
 ------------
 # __FrontEnd__
 
-![Image of Stock](http://backet-for-fe-app-auto-2.s3-website-us-east-1.amazonaws.com/)
-
 ```
-Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
-Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront.
-Рядом с ценой каждого товара выводится остаток на складе (stock).
-Для товара у которого нет картинки используется стандартная картинка-заглушка
+The data in the FE is displayed from the API, which in turn takes it from the RDS AWS database.
+Pictures are stored in a specially created S3 Bucket. CloudFront is configured for it.
+Next to the price of each product, the remaining stock (stock) is displayed.
+For a product that does not have a picture, a standard stub picture is used
 ```
 
-* FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d3ph6tvz43noms.cloudfront.net/ 
-* FrontEnd Task-4 Pull Request : - https://github.com/slubimav/aws-back/pull/1
+* FrontEnd integrated with product service HTTP API & images from S3 Bucket: http://backet-for-fe-app-auto-2.s3-website-us-east-1.amazonaws.com/ 
+* FrontEnd Task-4 Pull Request : - https://github.com/slubimav/aws-front/pull/2
 
 # __BackEnd__
 
