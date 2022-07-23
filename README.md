@@ -32,7 +32,7 @@ Next to the price of each product, the remaining stock (stock) is displayed.
 For a product that does not have a picture, a standard stub picture is used
 ```
 
-* FrontEnd integrated with product service HTTP API & images from S3 Bucket: http://backet-for-fe-app-auto-2.s3-website-us-east-1.amazonaws.com/ 
+* FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d2ufhlxk3moxcg.cloudfront.net
 * FrontEnd Task-4 Pull Request : - https://github.com/slubimav/aws-front/pull/2
 
 # __BackEnd__
