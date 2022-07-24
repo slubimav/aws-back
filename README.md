@@ -29,7 +29,6 @@ Self check:
 The data in the FE is displayed from the API, which in turn takes it from the RDS AWS database.
 Pictures are stored in a specially created S3 Bucket. CloudFront is configured for it.
 Next to the price of each product, the remaining stock (stock) is displayed.
-For a product that does not have a picture, a standard stub picture is used
 ```
 
 * FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d2ufhlxk3moxcg.cloudfront.net
@@ -51,9 +50,15 @@ Task 4.3 | __createProduct__ POST to add product to DB | POST | See screenshot
 ##### Product Creation 
 
 ![Postman](https://github.com/slubimav/aws-back/blob/task-4/screenshots/create_product.png)
+![Website](https://github.com/slubimav/aws-back/blob/task-4/screenshots/product_created.png)
 ##### CloudWatch Logs getProductsList:
 
 ![BackEnd](https://github.com/slubimav/aws-back/blob/task-4/screenshots/CloudWatchLogs.png)
+
+##### Errors:
+
+![error 400](https://github.com/slubimav/aws-back/blob/task-4/screenshots/error_400.png)
+![error 500](https://github.com/slubimav/aws-back/blob/task-4/screenshots/error_500.png)
 
 ------------
 
