@@ -1,6 +1,7 @@
 service: product-service-without-webpack
 frameworkVersion: '3'
 configValidationMode: warn
+useDotenv: true
 
 provider:
   name: aws
@@ -10,6 +11,12 @@ provider:
   region: eu-central-1
   tracing:
     lambda: true
+  environment:
+    PG_HOST: ${env:PG_HOST}
+    PG_PORT: ${env:PG_PORT}
+    PG_DATABASE: ${env:PG_DATABASE}
+    PG_USERNAME: ${env:PG_USERNAME}
+    PG_PASSWORD: ${env:PG_PASSWORD}
 
 package:
   individually: true
@@ -29,4 +36,12 @@ functions:
       - http:
           path: products/{productId}
           method: get
+          cors: true
+
+  createProduct:
+    handler: lambdas/createProduct.handler
+    events:
+      - http:
+          path: products
+          method: post
           cors: true
