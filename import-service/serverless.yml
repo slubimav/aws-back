@@ -11,9 +11,11 @@ provider:
   region: eu-central-1
   tracing:
     lambda: true
+  environment:
+    BUCKET: ${env:BUCKET}
   s3:
     bucketOne:
-      name: ${self:custom.bucket}
+      name: ${env:BUCKET}
       corsConfiguration:
           CorsRules:
             - AllowedMethods:
@@ -24,6 +26,19 @@ provider:
                 - '*'
               AllowedHeaders:
                 - '*'
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: s3:ListBucket
+          Resource:
+            - arn:aws:s3:::${env:BUCKET}
+
+        - Effect: Allow
+          Action:
+            - s3:*
+          Resource:
+            - arn:aws:s3:::${env:BUCKET}/*
 functions:
   importProductsFile:
     handler: lambdas/importProductsFile.handler
@@ -45,5 +60,3 @@ functions:
           rules:
             - prefix: uploaded/
             - suffix: .csv
-custom:
-  bucket: task-5-csv-uploaded
