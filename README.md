@@ -26,27 +26,25 @@ Self check:
 # __Summary Report__
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
-Cr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
-Cr.2 | SignedURL to upload CSV in S3 by importProductsFile lambda | https://i4j8swnir7.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
-Cr.3 | Try youself by sending CSV and check errors in Chrome console | https://d3ph6tvz43noms.cloudfront.net/admin/products
-Cr.4 | Link to importFileParser. Link to serverless.yml see in Cr.1 | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
-Ad.1 | async/await is used in importProductsFile | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
-Ad.1 | async/await is used in importFileParser | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
-Ad.2 | Please check code by link and screenshots below | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.test.js
-Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Cr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/slubimav/aws-back/blob/task-5/import-service/serverless.yml
+Cr.2 | SignedURL to upload CSV in S3 by importProductsFile lambda | https://qid4b6lzgj.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
+Cr.3 | Try youself by sending CSV and check errors in Chrome console | https://d2ufhlxk3moxcg.cloudfront.net//admin/products
+Cr.4 | Link to importFileParser. Link to serverless.yml see in Cr.1 | https://github.com/slubimav/aws-back/blob/task-5/import-service/lambdas/importFileParser.js
+Ad.1 | async/await is used in importProductsFile | https://github.com/slubimav/aws-back/blob/task-5/import-service/lambdas/importProductsFile.js
+Ad.1 | async/await is used in importFileParser | https://github.com/slubimav/aws-back/blob/task-5/import-service/lambdas/importFileParser.js
+Ad.2 | Please check code by link and screenshots below | https://github.com/slubimav/aws-back/blob/task-5/import-service/lambdas/importProductsFile.js
+Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com/slubimav/aws-back/blob/task-5/import-service/lambdas/importFileParser.js
 
 ## __FrontEnd__
 
 ```
-Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
-Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront.
-Рядом с ценой каждого товара выводится остаток на складе (stock).
-Для товара у которого нет картинки используется стандартная картинка-заглушка.
+The data in the FE is displayed from the API, which in turn takes it from the RDS AWS database.
+Pictures are stored in a specially created S3 Bucket. CloudFront is configured for it.
+Next to the price of each product, the remaining stock (stock) is displayed.
 
-В админке реализовано: 
-- выводится список товаров
-- загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket).
-
+Implemented in the admin:
+- displays a list of products
+- uploading a CSV file with a list of products to the backed (to a specially created S3 Bucket).
 
 ```
 
@@ -56,23 +54,23 @@ Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com
 ## __BackEnd__
 
 ```
-В Task-5 реализовано: 
+Task-5 implements:
 
-- автоматическое создание бакета task-5-csv-uploaded при деплое
-  для загрузки CSV с автоматичеcким прописанием ему CORS
-  (дополнительно к заданию 5)
+- automatic creation of the task-5-csv-uploaded bucket during deployment
+  to upload CSV with automatic CORS assignment to it
+  (in addition to task 5)
 
-- загрузка CSV файла со списком товаров на бэкед 
-  (в специально созданный S3 Bucket - task-5-csv-uploaded)
+- uploading a CSV file with a list of products to the backed
+  (to a specially created S3 Bucket - task-5-csv-uploaded)
 
-- по факту загрузки именно csv файла именно в директорию uploaded/ срабатывает
-  парсинг файла с выводом данных в логи CloudWatch
+- upon loading the csv file exactly in the uploaded/ directory, it works
+  parsing a file with data output to CloudWatch logs
 
-- после вывода данных в CloudWatch файл CSV копируется из uploaded/ в parsed/
-  и папка uploaded/ удаляется
+- after outputting data to CloudWatch, the CSV file is copied from uploaded/ to parsed/
+  and the uploaded/ folder is deleted
 
-Все эти задачи реализованы в рамках создания нового сервиса import-service в рамках
-создания приложения микросервисной архитектуры.
+All these tasks are implemented as part of the creation of a new import-service within the framework of
+creating a microservice architecture application.
 
 ```
 
