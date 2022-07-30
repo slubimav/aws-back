@@ -1,67 +1,97 @@
-# __Task 4__
+# __Task 5__
 
-Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/tree/main/4_integration_with_database)
+Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/5_integration_with_s3/task.md)
 
-Task due date / deadline date - 2022-07-18 07:00 / 2022-07-25 01:59(GMT+3)
+Task due date / deadline date - 2022-07-25 07:00 / 2022-08-01 01:59(GMT+3)
 
 Self check:
  
- TOTAL POINTS - _** 9 points**_
+ TOTAL POINTS - _** 8 points**_
  
 -----------
-## __Evalution Criteria__
+## __Evaluation criteria__
 
-- [x] 1 - TASK 4.1 is implemented => Link to [SQL script with exemple data](https://github.com/slubimav/aws-back/blob/task-4/product-service/sql_script/products_and_stocks.sql)
-- [x] 3 - TASK 4.2 is implemented lambda links are provided and returns data
-- [x] 4 - TASK 4.3 is implemented lambda links are provided and products is stored in DB (call TASK 4.2 to see the product)
-- [x] 5 - Your own Frontend application is integrated with product service (/products API) and products from product-service are represented on Frontend. Link to a working Front-End application is provided for cross-check reviewer.
+- [x] Cr.1: +1 - File serverless.yml contains configuration for importProductsFile function
+- [x] Cr.2: +3 - The importProductsFile lambda function returns a correct response which can be used to upload a file into the S3 bucket
+- [x] Cr.3: +4 - Frontend application is integrated with importProductsFile lambda
+- [x] Cr.4: +5 - The importFileParser lambda function is implemented and serverless.yml contains configuration for the lambda
 
-## __Additional options__
+## __Additional (optional) tasks__
 
-- [x] Ad.1: POST/products lambda functions returns error 400 status code if product data is invalid
-- [x] Ad.2: All lambdas return error 500 status code on any error (DB connection, any unhandled error in code)
-- [x] Ad.3: All lambdas do console.log for each incoming requests and their arguments
-- [x] Ad.4: Transaction based creation of product (in case stock creation is failed then related to this stock product is not created and not ready to be used by the end user and vice versa)
-------------
-# __FrontEnd__
-
-```
-The data in the FE is displayed from the API, which in turn takes it from the RDS AWS database.
-Pictures are stored in a specially created S3 Bucket. CloudFront is configured for it.
-Next to the price of each product, the remaining stock (stock) is displayed.
-```
-
-* FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d2ufhlxk3moxcg.cloudfront.net
-* FrontEnd Task-4 Pull Request : - https://github.com/slubimav/aws-front/pull/2
-
-# __BackEnd__
-
-Task   | Description | Method | URL 
--------|-------------|--------|-----
-Task 4.1 | __SQL script__ with exemple data | GET | https://github.com/slubimav/aws-back/blob/task-4/product-service/sql_script/products_and_stocks.sql
-Task 4.2 | __getProductsList__ get ALL products from DB | GET | https://tmea6ql6l8.execute-api.eu-central-1.amazonaws.com/dev/products
-Task 4.2 | __getProductsById__ get product from DB by id | GET | https://tmea6ql6l8.execute-api.eu-central-1.amazonaws.com/dev/products/1c9a8a23-1ace-4d21-97b9-9ed670160247
-Ad.1 | __getProductsById__ get product with __WRONG id__ | GET | https://tmea6ql6l8.execute-api.eu-central-1.amazonaws.com/dev/products/830be059-d085-4f6f-976e-d5bafa3e1165
-Ad.2 | getProductsById get product with __invalid id__ | GET | https://tmea6ql6l8.execute-api.eu-central-1.amazonaws.com/dev/products/777
-Task 4.3 | __createProduct__ POST to add product to DB | POST | See screenshot
-
-### Screenshots
-
-##### Product Creation 
-
-![Postman](https://github.com/slubimav/aws-back/blob/task-4/screenshots/create_product.png)
-![Website](https://github.com/slubimav/aws-back/blob/task-4/screenshots/product_created.png)
-##### CloudWatch Logs getProductsList:
-
-![BackEnd](https://github.com/slubimav/aws-back/blob/task-4/screenshots/CloudWatchLogs.png)
-
-##### Errors:
-
-![error 400](https://github.com/slubimav/aws-back/blob/task-4/screenshots/error_400.png)
-![error 500](https://github.com/slubimav/aws-back/blob/task-4/screenshots/error_500.png)
-
+- [x] Ad.1: +1 (for JS only) - async/await is used in lambda functions
+- [x] Ad.2: +1 (All languages) - importProductsFile lambda is covered by unit tests ((for JS only) aws-sdk-mock can be used to mock S3 methods
+- [x] Ad.3: +1 (All languages) - At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder (move the file means that file should be copied into parsed folder, and then deleted from uploaded folder)
 ------------
 
-# __Swagger documentation__
+# __Summary Report__
+Evaluation criteria   | Description | URL 
+-------|--------------|-----
+Cr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
+Cr.2 | SignedURL to upload CSV in S3 by importProductsFile lambda | https://i4j8swnir7.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
+Cr.3 | Try youself by sending CSV and check errors in Chrome console | https://d3ph6tvz43noms.cloudfront.net/admin/products
+Cr.4 | Link to importFileParser. Link to serverless.yml see in Cr.1 | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Ad.1 | async/await is used in importProductsFile | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
+Ad.1 | async/await is used in importFileParser | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Ad.2 | Please check code by link and screenshots below | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.test.js
+Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
 
-https://app.swaggerhub.com/apis/slubimav/AWS-NodeJS/1.0.0/
+## __FrontEnd__
+
+```
+Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
+Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront.
+Рядом с ценой каждого товара выводится остаток на складе (stock).
+Для товара у которого нет картинки используется стандартная картинка-заглушка.
+
+В админке реализовано: 
+- выводится список товаров
+- загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket).
+
+
+```
+
+* FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d3ph6tvz43noms.cloudfront.net/ 
+* FrontEnd Task-5 Pull Request : - https://github.com/SeLub/shop-aws-fe/pull/4
+
+## __BackEnd__
+
+```
+В Task-5 реализовано: 
+
+- автоматическое создание бакета task-5-csv-uploaded при деплое
+  для загрузки CSV с автоматичеcким прописанием ему CORS
+  (дополнительно к заданию 5)
+
+- загрузка CSV файла со списком товаров на бэкед 
+  (в специально созданный S3 Bucket - task-5-csv-uploaded)
+
+- по факту загрузки именно csv файла именно в директорию uploaded/ срабатывает
+  парсинг файла с выводом данных в логи CloudWatch
+
+- после вывода данных в CloudWatch файл CSV копируется из uploaded/ в parsed/
+  и папка uploaded/ удаляется
+
+Все эти задачи реализованы в рамках создания нового сервиса import-service в рамках
+создания приложения микросервисной архитектуры.
+
+```
+
+## Screenshots 
+
+------------
+
+### Frontend
+
+![Fronypage screenshot after download CSV](frontpage.png)
+
+### CloudWatch
+
+![CloudWatch screenshot after parsing CSV](cloudwatch.png)
+
+### Tests
+
+![Tests resaults](tests.png)
+
+## __Swagger documentation__
+
+https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
