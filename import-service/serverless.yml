@@ -24,7 +24,6 @@ provider:
                 - '*'
               AllowedHeaders:
                 - '*'
-
 functions:
   importProductsFile:
     handler: lambdas/importProductsFile.handler
@@ -40,10 +39,11 @@ functions:
   importFileParser:
     handler: lambdas/importFileParser.handler
     events:
-      - s3: bucketOne
-        event: s3:ObjectCreated:*
-        rules:
-          - prefix: uploaded/
-          - suffix: .csv
+      - s3:
+          bucket: bucketOne
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+            - suffix: .csv
 custom:
   bucket: task-5-csv-uploaded
