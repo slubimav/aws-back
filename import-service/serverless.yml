@@ -45,3 +45,5 @@ functions:
         rules:
           - prefix: uploaded/
           - suffix: .csv
+custom:
+  bucket: task-5-csv-uploaded
