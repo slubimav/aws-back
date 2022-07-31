@@ -48,8 +48,7 @@ Implemented in the admin:
 
 ```
 
-* FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d3ph6tvz43noms.cloudfront.net/ 
-* FrontEnd Task-5 Pull Request : - https://github.com/SeLub/shop-aws-fe/pull/4
+* FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d2ufhlxk3moxcg.cloudfront.net
 
 ## __BackEnd__
 
