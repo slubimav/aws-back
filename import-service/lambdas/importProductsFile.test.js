@@ -1,5 +1,6 @@
 import AWS from "aws-sdk-mock";
 import { handler as importProductsFile} from './importProductsFile.js';
+import { expect } from 'chai';
 
 const request = ( method = "GET", qsParam = { "name": "products.csv" } ) => {return { "httpMethod": method, "queryStringParameters": qsParam }}
  
@@ -23,55 +24,32 @@ describe('importProductsFile', () => {
 
     it(`should successfully get \"signedUrl\"`, async () => {
         const result = await importProductsFile(request());
-        expect(result.body.split('?')[0]).toEqual(mockUrl);
+        expect(result.body.split('?')[0]).to.equal(mockUrl);
     });
 
       it(`should get \"signedUrl\, created for \"PutObject\"`, async () => {
         const result = await importProductsFile(request());
-        expect((new URL(result.body)).searchParams.get("x-id")).toEqual('PutObject');
+        expect((new URL(result.body)).searchParams.get("x-id")).to.equal('PutObject');
     });
 
     it(`should return Status Code 202 with queryStringParameter \"name\" = products.csv `, async () => {
         const result = await importProductsFile(request());
-        expect(result.statusCode).toBe(202);    
+        expect(result.statusCode).to.equal(202);    
     });
 
     it(`should return Status Code \"400 Error\" without parameters `, async () => {
         const result = await importProductsFile(request("GET", null));
-        expect(result.statusCode).toBe(400);    
+        expect(result.statusCode).to.equal(400);    
     });
 
     it(`should return Status Code \"400 Error\" with queryStringParameter \"name\" = \"\". `, async () => {
         const result = await importProductsFile( request("GET", { "name": "" }) );
-        expect(result.statusCode).toBe(400);    
+        expect(result.statusCode).to.equal(400);    
     });
 
     it(`should return Status Code \"400 Error\" when query does not have \"name\" parameter. `, async () => {
         const result = await importProductsFile( request("GET", { "name22": "" }) );
-      expect(result.statusCode).toBe(400);    
-  });
-
-  test('Test getSignedUrl method by AWS mock', async () => {
-    
-    const event_test_request = { queryStringParameters: { name: testString } };
-  
-    AWS.mock('S3', 'getSignedUrl', testString);
-  
-    expect.assertions(1);
-
-    const response = await importProductsFile(event_test_request, null, null);
-
-    expect(response).toEqual(
-      expect.objectContaining({
-        statusCode: 202,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Credentials': true,
-        },
-        isBase64Encoded: false,
-        body: expect.stringMatching(/test.csv/),
-      })
-    );
+      expect(result.statusCode).to.equal(400);    
   });
 
 });
