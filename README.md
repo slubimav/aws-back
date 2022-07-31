@@ -44,7 +44,7 @@ Next to the price of each product, the remaining stock (stock) is displayed.
 
 Implemented in the admin:
 - displays a list of products
-- uploading a CSV file with a list of products to the backed (to a specially created S3 Bucket).
+- uploading a CSV file with a list of products to the backet (to a specially created S3 Bucket).
 
 ```
 
@@ -60,8 +60,8 @@ Task-5 implements:
   to upload CSV with automatic CORS assignment to it
   (in addition to task 5)
 
-- uploading a CSV file with a list of products to the backed
-  (to a specially created S3 Bucket - task-5-csv-uploaded)
+- uploading a CSV file with a list of products to the backet
+  (specially created S3 Bucket - task-5-csv-uploaded)
 
 - upon loading the csv file exactly in the uploaded/ directory, it works
   parsing a file with data output to CloudWatch logs
@@ -80,16 +80,12 @@ creating a microservice architecture application.
 
 ### Frontend
 
-![Fronypage screenshot after download CSV](frontpage.png)
-
-### CloudWatch
-
-![CloudWatch screenshot after parsing CSV](cloudwatch.png)
+![Fronypage screenshot after download CSV](./screenshots/ResposeUfterUpload.png)
 
 ### Tests
 
-![Tests resaults](tests.png)
+![Tests resaults](./screenshots/tests.png)
 
 ## __Swagger documentation__
 
-https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
+https://app.swaggerhub.com/apis/slubimav/AWS-NodeJS/1.0.0/
