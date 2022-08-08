@@ -1,19 +1,17 @@
-import { Client } from 'pg';
 import AWS from 'aws-sdk';
-import { handleResponse } from '../../libs/handleResponse';
-import { httpStatus } from '../../libs/httpStatus';
-import {createNewProduct} from '../../models/createNewProduct';
+import { handleResponse } from '../libs/handleResponse';
+import { httpStatus } from '../libs/httpStatus';
+import {createNewProduct} from '../models/createNewProduct';
 
 export const handler = async event => {
   
-const { SNS_ARN, LOW_PRICE_LIMIT, HIGHT_PRICE_NOTIFICATION, LOW_PRICE } = process.env;
+const { SNS_ARN, LOW_PRICE_LIMIT, HIGHT_PRICE_NOTIFICATION, LOW_PRICE_NOTIFICATION } = process.env;
 
 async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array);
   }
 }
-
   
 await asyncForEach(event.Records, async (record) => {
 
@@ -23,7 +21,7 @@ try {
 
       console.log(messages);
 
-      const priceNotification = messages.price > process.env.LOW_PRICE_LIMIT ? process.env.HIGHT_PRICE_NOTIFICATION : process.env.LOW_PRICE_NOTIFICATION;
+      const priceNotification = messages.price > LOW_PRICE_LIMIT ? HIGHT_PRICE_NOTIFICATION : LOW_PRICE_NOTIFICATION;
 
       const {title, description, price, count } = messages;
    
@@ -37,7 +35,7 @@ try {
       
                 Message: JSON.stringify(messages),
               
-                TopicArn: process.env.SNS_ARN,
+                TopicArn: SNS_ARN,
               
                 MessageAttributes: {
               
