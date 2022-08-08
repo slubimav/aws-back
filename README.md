@@ -1,6 +1,6 @@
 # __Task 6__
 
-Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/task6-async-services-integration-sqs-sns/task.md)
+Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/6_async_microservices_communication/task.md)
 
 Task due date / deadline date - 	2022-08-01 07:00 / 2022-08-08 01:59(GMT+3)
 
@@ -24,8 +24,8 @@ Self check:
 
 # __Summary Report__
 
-* Link to **/product-service/serverless.yml** - https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/serverless.yml
-* Link to **/import-service/serverless.yml*** - https://github.com/SeLub/shop-aws-be/blob/task-6/import-service/serverless.yml
+* Link to **/product-service/serverless.yml** - https://github.com/slubimav/aws-back/blob/task-6/product-service/serverless.yml
+* Link to **/import-service/serverless.yml*** - https://github.com/slubimav/aws-back/blob/task-6/import-service/serverless.yml
 
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
@@ -82,3 +82,13 @@ Task-6 implements:
 ## __Swagger documentation__
 
 https://app.swaggerhub.com/apis/slubimav/AWS-NodeJS/1.0.0/
+
+# Steps to deploy:
+
+0. confug product-service in .env
+1. cd product-service
+2. serverless deploy 
+3. In AWS Console open SQS Service and copy SQS_ARN and SQS_URL for import-service
+4. Insert SQS_ARN and SQS_URL in .env import-service
+5. cd import-service
+6. serverless deploy
