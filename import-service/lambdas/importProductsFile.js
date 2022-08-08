@@ -6,14 +6,14 @@ let resault = undefined, stCode = 0;
 
 export const handler = async event => {
 
-//	console.log(event);
+	console.log(event);
  	
-  if (event === undefined || !event.queryStringParameters || !event.queryStringParameters.name || event.queryStringParameters.name === '') {
+  if (!event || !event.queryStringParameters || !event.queryStringParameters.name) {
         resault = { message: 'Bad request' }, stCode = 400;
   
   } else {
   
-          let fileName = event['queryStringParameters']['name'];
+          let fileName = event.queryStringParameters.name;
           
           const BACKET = "task-5-csv-uploaded"; //BUCKET_NAME
 
@@ -31,7 +31,7 @@ export const handler = async event => {
             
             const url = await getSignedUrl(client, command);
             
-    //        console.log(`Getting signedUrl to put "${catalogPath}" to "${bucketParams.Backet}".\nSinedURL :`, url);
+            console.log(`Getting signedUrl to put "${catalogPath}" to "${bucketParams.Backet}".\nSinedURL :`, url);
       
             resault = url; stCode = 202;
         
