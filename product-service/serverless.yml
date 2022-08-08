@@ -18,8 +18,8 @@ provider:
     PG_USERNAME: ${env:PG_USERNAME}
     PG_PASSWORD: ${env:PG_PASSWORD}
     LOW_PRICE_LIMIT: ${env:LOW_PRICE_LIMIT}
-    HIGHT_PRICE_NOTIFICATION: ${env:HIGHT_PRICE}
-    LOW_PRICE_NOTIFICATION: ${env:LOW_PRICE}
+    HIGHT_PRICE_NOTIFICATION: ${env:HIGHT_PRICE_NOTIFICATION}
+    LOW_PRICE_NOTIFICATION: ${env:LOW_PRICE_NOTIFICATION}
     SQSQueueName: ${env:SQSQueueName}
     SNSTopicName: ${env:SNSTopicName}
     BATCH_SQS_SIZE: ${env:BATCH_SQS_SIZE}
@@ -28,20 +28,20 @@ provider:
     SNS_ARN:
       Ref: SNSTopic
 
-iam:
-  role:
-    statements:
-      - Effect: Allow
-        Action: sqs:*
-        Resource:
-          Fn::GetAtt:
-            - SQSQueue
-            - Arn
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: sqs:*
+          Resource:
+            Fn::GetAtt:
+              - SQSQueue
+              - Arn
 
-      - Effect: Allow
-        Action: sns:*
-        Resource:
-          Ref: SNSTopic
+        - Effect: Allow
+          Action: sns:*
+          Resource:
+            Ref: SNSTopic
 
 package:
   individually: true
@@ -101,7 +101,7 @@ resources:
           Ref: SNSTopic
         FilterPolicy:
           Price: 
-            - ${env:LOW_PRICE}
+            - ${env:LOW_PRICE_NOTIFICATION}
 
     SNSFinishParsingSubscription:
       Type: AWS::SNS::Subscription
@@ -112,7 +112,7 @@ resources:
           Ref: SNSTopic
         FilterPolicy:
           Price: 
-            - ${env:HIGHT_PRICE}
+            - ${env:HIGHT_PRICE_NOTIFICATION}
 
 outputs: 
   SQSQueueLink:
