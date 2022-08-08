@@ -1,39 +1,40 @@
-# __Task 5__
+# __Task 6__
 
-Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/5_integration_with_s3/task.md)
+Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/task6-async-services-integration-sqs-sns/task.md)
 
-Task due date / deadline date - 2022-07-25 07:00 / 2022-08-01 01:59(GMT+3)
+Task due date / deadline date - 	2022-08-01 07:00 / 2022-08-08 01:59(GMT+3)
 
 Self check:
  
- TOTAL POINTS - _** 8 points**_
+ TOTAL POINTS - _** 6 points**_
  
 -----------
 ## __Evaluation criteria__
 
-- [x] Cr.1: +1 - File serverless.yml contains configuration for importProductsFile function
-- [x] Cr.2: +3 - The importProductsFile lambda function returns a correct response which can be used to upload a file into the S3 bucket
-- [x] Cr.3: +4 - Frontend application is integrated with importProductsFile lambda
-- [x] Cr.4: +5 - The importFileParser lambda function is implemented and serverless.yml contains configuration for the lambda
+- [x] Cr.1: **1** - File **serverless.yml** contains configuration for **catalogBatchProcess** function
+- [x] Cr.2: **2** - File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS
+- [x] Cr.3: **3** - File **serverless.yml** contains configuration for SQS **catalogItemsQueue**
+- [x] Cr.4: **4** - File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription
 
 ## __Additional (optional) tasks__
 
-- [x] Ad.1: +1 (for JS only) - async/await is used in lambda functions
-- [x] Ad.2: +1 (All languages) - importProductsFile lambda is covered by unit tests ((for JS only) aws-sdk-mock can be used to mock S3 methods
-- [x] Ad.3: +1 (All languages) - At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder (move the file means that file should be copied into parsed folder, and then deleted from uploaded folder)
+- [x] Ad.1: +1 **(All languages)** - **catalogBatchProcess** lambda is covered by **unit** tests
+- [x] Ad.2: +1 **(All languages)** - set a Filter Policy for SNS **createProductTopic** in **serverless.yml** (Create an additional email subscription and distribute messages to different emails depending on the filter for any product attribute)
 ------------
 
 # __Summary Report__
+
+* Link to **/product-service/serverless.yml** - https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/serverless.yml
+* Link to **/import-service/serverless.yml*** - https://github.com/SeLub/shop-aws-be/blob/task-6/import-service/serverless.yml
+
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
-Cr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/slubimav/aws-back/blob/task-5/import-service/serverless.yml
-Cr.2 | SignedURL to upload CSV in S3 by importProductsFile lambda | https://qid4b6lzgj.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
-Cr.3 | Try youself by sending CSV and check errors in Chrome console | https://d2ufhlxk3moxcg.cloudfront.net//admin/products
-Cr.4 | Link to importFileParser. Link to serverless.yml see in Cr.1 | https://github.com/slubimav/aws-back/blob/task-5/import-service/lambdas/importFileParser.js
-Ad.1 | async/await is used in importProductsFile | https://github.com/slubimav/aws-back/blob/task-5/import-service/lambdas/importProductsFile.js
-Ad.1 | async/await is used in importFileParser | https://github.com/slubimav/aws-back/blob/task-5/import-service/lambdas/importFileParser.js
-Ad.2 | Please check code by link and screenshots below | https://github.com/slubimav/aws-back/blob/task-5/import-service/lambdas/importProductsFile.js
-Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com/slubimav/aws-back/blob/task-5/import-service/lambdas/importFileParser.js
+Cr.1 | File **serverless.yml** contains configuration for **catalogBatchProcess** function   | Lines 128-136 
+Cr.2 | File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS | Line 47 - 57
+Cr.3 | File **serverless.yml** contains configuration for SQS **catalogItemsQueue** | Lines 39 - 40, 61 - 64
+Cr.4 | File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription | Lines 41 - 42, 66 - 91
+Ad.1 | **catalogBatchProcess** lambda is covered by **unit** tests | https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/functions/catalogBatchProcess/catalogBatchProcess.test.js
+Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** | Lines 78 - 80 and 89 - 91
 
 ## __FrontEnd__
 
@@ -53,23 +54,16 @@ Implemented in the admin:
 ## __BackEnd__
 
 ```
-Task-5 implements:
+Task-6 implements:
 
-- automatic creation of the task-5-csv-uploaded bucket during deployment
-  to upload CSV with automatic CORS assignment to it
-  (in addition to task 5)
 
-- uploading a CSV file with a list of products to the backet
-  (specially created S3 Bucket - task-5-csv-uploaded)
-
-- upon loading the csv file exactly in the uploaded/ directory, it works
-  parsing a file with data output to CloudWatch logs
-
-- after outputting data to CloudWatch, the CSV file is copied from uploaded/ to parsed/
-  and the uploaded/ folder is deleted
-
-All these tasks are implemented as part of the creation of a new import-service within the framework of
-creating a microservice architecture application.
+* during deployment, S3 Bucket **task-5-csv-uploaded** is automatically created and Сors and Policy are automatically assigned to it.
+* during deployment, an SQS queue **catalogItemsQueue** is automatically created, which is a trigger for a lambda **catalogBatchProcess**
+* lambda **importFileParser**, upload csv file to S3 Bucket **task-5-csv-uploaded** and send messages in SQS queue **catalogItemsQueue**
+* * during deployment, a lambda **catalogBatchProcess** is automatically created, which receives messages from the SQS queue **catalogItemsQueue** up to 5 pieces at a time and stores them in the database
+* during deployment, an SNS queue **catalogItemsQueue** is automatically created, which sends messages to e-mail when parsing goods from csv, while messages are sorted by price. The price is 500$
+* after loading the csv file, records are created in the database
+* **catalogBatchProcess** is in the **product-service** service
 
 ```
 
