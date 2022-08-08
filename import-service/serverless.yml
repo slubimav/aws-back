@@ -13,6 +13,8 @@ provider:
     lambda: true
   environment:
     BUCKET: ${env:BUCKET}
+    SQS_URL: ${env:SQS_URL}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
   s3:
     bucketOne:
       name: ${env:BUCKET}
@@ -39,6 +41,11 @@ provider:
             - s3:*
           Resource:
             - arn:aws:s3:::${env:BUCKET}/*
+
+        - Effect: Allow
+          Action: sqs:*
+          Resource:
+            - ${env:SQS_ARN}
 functions:
   importProductsFile:
     handler: lambdas/importProductsFile.handler
