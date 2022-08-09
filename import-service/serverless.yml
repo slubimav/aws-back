@@ -1,0 +1,62 @@
+service: import-service
+frameworkVersion: '3'
+configValidationMode: warn
+useDotenv: true
+
+provider:
+  name: aws
+  deploymentMethod: direct
+  runtime: nodejs16.x
+  stage: dev
+  region: eu-central-1
+  tracing:
+    lambda: true
+  environment:
+    BUCKET: ${env:BUCKET}
+  s3:
+    bucketOne:
+      name: ${env:BUCKET}
+      corsConfiguration:
+          CorsRules:
+            - AllowedMethods:
+                - GET
+                - PUT
+                - DELETE
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: s3:ListBucket
+          Resource:
+            - arn:aws:s3:::${env:BUCKET}
+
+        - Effect: Allow
+          Action:
+            - s3:*
+          Resource:
+            - arn:aws:s3:::${env:BUCKET}/*
+functions:
+  importProductsFile:
+    handler: lambdas/importProductsFile.handler
+    events:
+      - http:
+          path: /import
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                name: true
+  importFileParser:
+    handler: lambdas/importFileParser.handler
+    events:
+      - s3:
+          bucket: bucketOne
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+            - suffix: .csv
