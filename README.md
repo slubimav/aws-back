@@ -87,11 +87,11 @@ Task-6 implements:
 
 ![ProductsCSV Downloaded by Frontend](screenshots/downloadedcsv.png)
 
-#### CSV file with data in S3 Bucket, in folder 'parsed'. Pasing has been done succeded and next screenshot presents the result.
+#### CSV file with data in S3 Bucket, in folder 'parsed'. Parsing has been done successfully and next screenshot presents a result.
 
 ![Parsed ProductsCSV in S3 Bucket](screenshots/csvparsed.png)
 
-#### Pasing has been done succeded and products has been sent to SQS quie.
+#### Parsing has been done successfully and products has been sent to SQS queue.
 
 ![List of products records in SQS](screenshots/sqsmessages.png)
 
