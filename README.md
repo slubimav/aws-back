@@ -95,18 +95,6 @@ Task-6 implements:
 
 ![List of products records in SQS](screenshots/sqsmessages.png)
 
-#### Так выглядит единичная запись в очереде SQS.
-
-![Single message in SQS](screenshots/singleMessageInSQS.png)
-
-#### Records in CloudWatch.
-
-![Messages in CloudWatch](screenshots/CloudWatch.png)
-
-#### Record in CloudWatch about catalogBatchProcess.
-
-![Messages in CloudWatch](screenshots/cloudwatch.png)
-
 #### Just created products at Home Page
 
 ![Messages in CloudWatch](screenshots/frontend.png)
