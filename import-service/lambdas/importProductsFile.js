@@ -15,7 +15,7 @@ export const handler = async event => {
   
           let fileName = event.queryStringParameters.name;
           
-          const BACKET = "task-5-csv-uploaded"; //BUCKET_NAME
+          const BACKET = process.env.BUCKET; //BUCKET_NAME
 
           const catalogPath = `uploaded/${fileName}`; // FILE_NAME
 

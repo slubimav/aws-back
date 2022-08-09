@@ -1,11 +1,10 @@
-import { Client } from 'pg';
-import { dbOptions } from './dbOptions';
-import { dbTables } from './dbTables';
-import { httpStatus } from '../libs/httpStatus';
+import pkg from 'pg';
+const { Client } = pkg;
+import { dbOptions } from './dbOptions.js';
+import { dbTables } from './dbTables.js';
+import { httpStatus } from '../libs/httpStatus.js';
 
-const createNewProduct = async (title, description, price, count) => {
-	
-    console.log(dbOptions);
+export const createNewProduct = async (title, description, price, count) => {
     
     const client = new Client(dbOptions);
     try{
@@ -19,15 +18,14 @@ const createNewProduct = async (title, description, price, count) => {
     try {
         await client.query('BEGIN')
         let query = {
-            text: `INSERT INTO ${dbTables.PRODUCTS}(title, description, price) VALUES ($1, $2, $3) RETURNING id;`,
+            text: `INSERT INTO ${dbTables.PRODUCTS} (title, description, price) VALUES ($1, $2, $3) RETURNING id;`,
             values: [title, description, price],
         }
-
         const id = await client.query(query);
 
         if (count != undefined && count != ''){
             query = {
-                text: `INSERT INTO ${dbTables.STOCKS}(product_id, count) VALUES ($1, $2)`,
+                text: `INSERT INTO ${dbTables.STOCKS} (product_id, count) VALUES ($1, $2)`,
                 values: [id.rows[0].id, count],
             }
 
@@ -53,5 +51,3 @@ const createNewProduct = async (title, description, price, count) => {
       }
 
 }
-
-export {createNewProduct}

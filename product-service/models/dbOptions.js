@@ -1,7 +1,7 @@
 const {PG_HOST, PG_PORT, PG_DATABASE, PG_USERNAME, PG_PASSWORD} = process.env;
 
 
-const dbOptions = {
+export const dbOptions = {
   user: PG_USERNAME,
   host: PG_HOST,
   database: PG_DATABASE,
@@ -12,5 +12,3 @@ const dbOptions = {
   },
   connectionTimeoutMillis: 5000,
 };
-
-export {dbOptions}

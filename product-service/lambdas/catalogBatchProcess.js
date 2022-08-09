@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
-import { handleResponse } from '../libs/handleResponse';
-import { httpStatus } from '../libs/httpStatus';
-import {createNewProduct} from '../models/createNewProduct';
+import { handleResponse } from '../libs/handleResponse.js';
+import { httpStatus } from '../libs/httpStatus.js';
+import { createNewProduct } from '../models/createNewProduct.js';
 
 export const handler = async event => {
   
