@@ -29,12 +29,12 @@ Self check:
 
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
-Cr.1 | File **serverless.yml** contains configuration for **catalogBatchProcess** function   | Lines 128-136 
-Cr.2 | File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS | Line 47 - 57
-Cr.3 | File **serverless.yml** contains configuration for SQS **catalogItemsQueue** | Lines 39 - 40, 61 - 64
-Cr.4 | File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription | Lines 41 - 42, 66 - 91
-Ad.1 | **catalogBatchProcess** lambda is covered by **unit** tests | https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/functions/catalogBatchProcess/catalogBatchProcess.test.js
-Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** | Lines 78 - 80 and 89 - 91
+Cr.1 | File **serverless.yml** contains configuration for **catalogBatchProcess** function   | Lines 74-82 
+Cr.2 | File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS | Line 31 - 44
+Cr.3 | File **serverless.yml** contains configuration for SQS **catalogItemsQueue** | Lines 26 - 27, 85 - 89
+Cr.4 | File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription | Lines 28 - 29, 90 - 93
+Ad.1 | **catalogBatchProcess** lambda is covered by **unit** tests | https://github.com/slubimav/aws-back/blob/task-6/product-service/lambdas/catalogBatchProcess.test.js
+Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** | Lines 102 - 104 and 113 - 115
 
 ## __FrontEnd__
 
@@ -66,23 +66,6 @@ Task-6 implements:
 * **catalogBatchProcess** is in the **product-service** service
 
 ```
-
-## Screenshots 
-
-------------
-
-### Frontend
-
-![Fronypage screenshot after download CSV](./screenshots/ResposeUfterUpload.png)
-
-### Tests
-
-![Tests resaults](./screenshots/tests.png)
-
-## __Swagger documentation__
-
-https://app.swaggerhub.com/apis/slubimav/AWS-NodeJS/1.0.0/
-
 # Steps to deploy:
 
 0. confug product-service in .env
@@ -92,3 +75,42 @@ https://app.swaggerhub.com/apis/slubimav/AWS-NodeJS/1.0.0/
 4. Insert SQS_ARN and SQS_URL in .env import-service
 5. cd import-service
 6. serverless deploy
+
+## Screenshots 
+
+------------
+####  CSV file with producs for the insertion in DB
+
+![ProductsCSV for download](screenshots/productscsv.png)
+
+#### CSV file uploaded by FE in S3 bucket without Errors (StatusCode 200)
+
+![ProductsCSV Downloaded by Frontend](screenshots/downloadedcsv.png)
+
+#### CSV file with data in S3 Bucket, in folder 'parsed'. Pasing has been done succeded and next screenshot presents the result.
+
+![Parsed ProductsCSV in S3 Bucket](screenshots/csvparsed.png)
+
+#### Pasing has been done succeded and products has been sent to SQS quie.
+
+![List of products records in SQS](screenshots/sqsmessages.png)
+
+#### Так выглядит единичная запись в очереде SQS.
+
+![Single message in SQS](screenshots/singleMessageInSQS.png)
+
+#### Records in CloudWatch.
+
+![Messages in CloudWatch](screenshots/CloudWatch.png)
+
+#### Record in CloudWatch about catalogBatchProcess.
+
+![Messages in CloudWatch](screenshots/cloudwatch.png)
+
+#### Just created products at Home Page
+
+![Messages in CloudWatch](screenshots/frontend.png)
+
+#### Email with product's price less than 500
+
+![Messages in CloudWatch](screenshots/email.png)
