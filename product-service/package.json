@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/slubimav/aws-back#readme",
   "devDependencies": {
+    "@types/sinon": "^10.0.13",
     "aws-sdk": "^2.1193.0",
     "aws-sdk-mock": "^5.7.0",
     "chai": "^4.3.6",
