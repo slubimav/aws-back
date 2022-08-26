@@ -45,9 +45,9 @@ const genRequest = ({
         resourcePath: '',
       },
       resource: '',
-    };
+    }
   
-    return request;
-  };
+    return request
+  }
   
-  export default genRequest;
+  export default genRequest

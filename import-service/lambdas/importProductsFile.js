@@ -1,6 +1,5 @@
-import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-
+import AWS from 'aws-sdk';
+AWS.config.update({ region: 'eu-central-1' });
 let resault = undefined, stCode = 0;
 
 
@@ -15,23 +14,25 @@ export const handler = async event => {
   
           let fileName = event.queryStringParameters.name;
           
-          const BACKET = "task-5-csv-uploaded"; //BUCKET_NAME
+          const BACKET = process.env.BUCKET; //BUCKET_NAME
 
           const catalogPath = `uploaded/${fileName}`; // FILE_NAME
 
           const signedUrlExpireSeconds = 60*5; //EXPIRATION
 
-          const bucketParams = { Bucket: BACKET, Key: catalogPath, ContentType: 'text/csv' }
+          const bucketParams = { 
+            Bucket: BACKET, 
+            Key: catalogPath, 
+            ContentType: 'text/csv',
+            Expires: signedUrlExpireSeconds}
 
-          const client = new S3Client({ region: 'eu-central-1' });
-          
-          const command = new PutObjectCommand(bucketParams);
+          const s3 = new AWS.S3({apiVersion: '2006-03-01'});
   
           try {
             
-            const url = await getSignedUrl(client, command);
+            const url = s3.getSignedUrl('putObject', bucketParams);
             
-            console.log(`Getting signedUrl to put "${catalogPath}" to "${bucketParams.Backet}".\nSinedURL :`, url);
+            console.log(`Getting signedUrl to put "${catalogPath}" to "${bucketParams.Bucket}".\nSinedURL :`, url);
       
             resault = url; stCode = 202;
         
